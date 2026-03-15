@@ -1,143 +1,165 @@
 @font-face {
-font-family: "TTHoves";
-src: url("./assets/fonts/TTHovesPro-Medium.woff2") format("woff2");
-font-weight: 500;
+  font-family: "TTHoves";
+  src: url("./assets/fonts/TTHovesPro-Medium.woff2") format("woff2");
+  font-weight: 500;
 }
 
 :root {
+  --bg: #C1C0BE;
+  --ball: #D5FB11;
+  --black: #000000;
 
---bg: #C1C0BE;
---ball: #D5FB11;
---black: #000;
-
---ball-size: 100px;
-
+  --ball-size: 28px;
+  --timer-size: 60px;
+  --text-size: 60px;
+  --title-size: 200px;
+  --title-line-height: 180px;
+  --line-width: 4px;
 }
 
-body{
-margin:0;
-overflow:hidden;
-background:var(--bg);
-font-family:"TTHoves", sans-serif;
+* {
+  box-sizing: border-box;
 }
 
-.slide{
-position:absolute;
-width:100vw;
-height:100vh;
-top:0;
-left:0;
-display:none;
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "TTHoves", sans-serif;
+  background: var(--bg);
 }
 
-.slide.active{
-display:block;
+#app-bg {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 0;
 }
 
-/* TIMER */
-
-#timer{
-position:absolute;
-top:64px;
-right:60px;
-font-size:60px;
-color:#000;
-z-index:10;
+#physics-layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* BALL AREA */
-
-.balls-area{
-position:absolute;
-left:0;
-top:0;
-width:50vw;
-height:100vh;
-overflow:hidden;
+#physics {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-canvas{
-width:100%;
-height:100%;
+#timer {
+  position: fixed;
+  top: 64px;
+  right: 60px;
+  font-size: var(--timer-size);
+  color: var(--black);
+  z-index: 20;
 }
 
-/* TITLE */
-
-.title{
-position:absolute;
-right:50px;
-bottom:86px;
-font-size:200px;
-line-height:180px;
-color:#000;
-text-align:right;
+#slides {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
 }
 
-/* SLIDE 2 */
-
-.left-title{
-position:absolute;
-top:64px;
-left:60px;
-font-size:60px;
-line-height:66px;
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
 }
 
-/* SCALE */
-
-.scale{
-position:absolute;
-left:50%;
-top:0;
-height:100%;
-transform:translateX(-50%);
+.slide.active {
+  display: block;
 }
 
-.scale-line{
-width:4px;
-height:100vh;
-background:#000;
-position:absolute;
-left:0;
+/* slide 1 */
+
+.title {
+  position: absolute;
+  left: calc(50% + 50px);
+  bottom: 86px;
+  font-size: var(--title-size);
+  line-height: var(--title-line-height);
+  color: var(--black);
 }
 
-.marker{
-position:absolute;
-left:0;
-transform:translate(-50%,0);
+/* slide 2 */
+
+.left-title {
+  position: absolute;
+  top: 64px;
+  left: 60px;
+  font-size: var(--text-size);
+  line-height: 1.05;
+  color: var(--black);
 }
 
-.tick{
-width:50px;
-height:4px;
-background:#000;
+.scale {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 0;
+  height: 100vh;
+  transform: translateX(-50%);
 }
 
-.ton-count{
-position:absolute;
-left:70px;
-top:-30px;
-font-size:60px;
+.scale-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--line-width);
+  height: 100vh;
+  background: var(--black);
+  transform: translateX(-50%);
 }
 
-/* LEGEND */
-
-.legend{
-position:absolute;
-right:60px;
-bottom:64px;
-display:flex;
-align-items:center;
-gap:16px;
+.marker {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.legend-ball{
-width:100px;
-height:100px;
-border-radius:50%;
-background:var(--ball);
+.tick {
+  width: 50px;
+  height: var(--line-width);
+  background: var(--black);
 }
 
-.legend-text{
-font-size:60px;
+.ton-count {
+  position: absolute;
+  left: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  color: var(--black);
+  white-space: nowrap;
+}
+
+.legend {
+  position: absolute;
+  right: 60px;
+  bottom: 64px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.legend-ball {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--ball);
+}
+
+.legend-text {
+  font-size: 60px;
+  color: var(--black);
 }
