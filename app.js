@@ -1,173 +1,137 @@
-const BALL_TON = 13;
-const MAX_TON = 50000;
+const BALL_TON = 13
+const MAX_TON = 50000
 
-const BALL_SIZE = 28;
-const BALL_RADIUS = BALL_SIZE / 2;
+let slide = 0
 
-const BALL_SPAWN_INTERVAL = 1000;
+const slides = document.querySelectorAll(".slide")
 
-const SCALE_TOP_PADDING = 40;
-const SCALE_BOTTOM_PADDING = 120;
+function showSlide(i){
 
-let currentSlide = 0;
-let totalTon = 0;
+slides.forEach(s=>s.classList.remove("active"))
+slides[i].classList.add("active")
 
-const slides = document.querySelectorAll(".slide");
-const timerEl = document.getElementById("timer");
-const markerEl = document.getElementById("marker");
-const tonTextEl = document.getElementById("tonCount");
-
-function showSlide(index) {
-  currentSlide = Math.max(0, Math.min(index, slides.length - 1));
-  slides.forEach((slide, i) => {
-    slide.classList.toggle("active", i === currentSlide);
-  });
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowRight") {
-    showSlide(currentSlide + 1);
-  }
-  if (e.key === "ArrowLeft") {
-    showSlide(currentSlide - 1);
-  }
-});
+showSlide(0)
 
-/* timer */
+document.addEventListener("keydown",(e)=>{
 
-const startTime = Date.now();
-
-function updateTimer() {
-  const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-
-  const h = String(Math.floor(elapsedSeconds / 3600)).padStart(2, "0");
-  const m = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, "0");
-  const s = String(elapsedSeconds % 60).padStart(2, "0");
-
-  timerEl.textContent = `${h}:${m}:${s}`;
+if(e.key==="ArrowRight"){
+slide=Math.min(slide+1,slides.length-1)
+showSlide(slide)
 }
 
-updateTimer();
-setInterval(updateTimer, 1000);
+if(e.key==="ArrowLeft"){
+slide=Math.max(slide-1,0)
+showSlide(slide)
+}
 
-/* physics */
+})
 
-const {
-  Engine,
-  Render,
-  Runner,
-  Bodies,
-  Composite,
-  World
-} = Matter;
+/* TIMER */
 
-const engine = Engine.create();
-engine.gravity.y = 0.7;
+const timerEl = document.getElementById("timer")
 
-const canvas = document.getElementById("physics");
+const startTime = Date.now()
+
+function updateTimer(){
+
+const t = Math.floor((Date.now()-startTime)/1000)
+
+const h = String(Math.floor(t/3600)).padStart(2,"0")
+const m = String(Math.floor((t%3600)/60)).padStart(2,"0")
+const s = String(t%60).padStart(2,"0")
+
+timerEl.textContent = `${h}:${m}:${s}`
+
+}
+
+setInterval(updateTimer,1000)
+
+/* PHYSICS */
+
+const {Engine,Render,Runner,Bodies,Composite} = Matter
+
+const engine = Engine.create()
+
+const canvas = document.getElementById("physics")
 
 const render = Render.create({
-  canvas,
-  engine,
-  options: {
-    width: Math.floor(window.innerWidth / 2),
-    height: window.innerHeight,
-    wireframes: false,
-    background: "transparent",
-  }
-});
 
-Render.run(render);
-
-const runner = Runner.create();
-Runner.run(runner, engine);
-
-let floor;
-let wallLeft;
-let wallRight;
-let ceiling;
-
-function createWalls() {
-  const width = window.innerWidth / 2;
-  const height = window.innerHeight;
-
-  floor = Bodies.rectangle(width / 2, height + 50, width, 100, {
-    isStatic: true,
-    render: { visible: false }
-  });
-
-  wallLeft = Bodies.rectangle(-50, height / 2, 100, height * 2, {
-    isStatic: true,
-    render: { visible: false }
-  });
-
-  wallRight = Bodies.rectangle(width + 50, height / 2, 100, height * 2, {
-    isStatic: true,
-    render: { visible: false }
-  });
-
-  ceiling = Bodies.rectangle(width / 2, -50, width, 100, {
-    isStatic: true,
-    render: { visible: false }
-  });
-
-  World.add(engine.world, [floor, wallLeft, wallRight, ceiling]);
+canvas:canvas,
+engine:engine,
+options:{
+width:window.innerWidth/2,
+height:window.innerHeight,
+wireframes:false,
+background:"transparent"
 }
 
-createWalls();
+})
 
-const balls = [];
+Render.run(render)
 
-function spawnBall() {
-  const width = window.innerWidth / 2;
+const runner = Runner.create()
+Runner.run(runner,engine)
+
+/* WALLS */
+
+const floor = Bodies.rectangle(
+window.innerWidth/4,
+window.innerHeight+50,
+window.innerWidth/2,
+100,
+{isStatic:true}
+)
+
+const wallLeft = Bodies.rectangle(-50,0,100,2000,{isStatic:true})
+const wallRight = Bodies.rectangle(window.innerWidth/2+50,0,100,2000,{isStatic:true})
+
+Composite.add(engine.world,[floor,wallLeft,wallRight])
+
+/* BALLS */
+
+let totalTon = 0
+
+function spawnBall(){
 
 const ball = Bodies.circle(
-  Math.random() * (width - BALL_SIZE) + BALL_RADIUS,
-  -BALL_RADIUS,
-  BALL_RADIUS,
-  {
-    restitution: 0.12,
-    friction: 0.08,
-    frictionAir: 0.02,
-    density: 0.0015,
-    render: {
-      fillStyle: "#D5FB11"
-    }
-  }
-);
 
-  balls.push(ball);
-  Composite.add(engine.world, ball);
+Math.random()*(window.innerWidth/2-100)+50,
+-50,
+50,
 
-  totalTon += BALL_TON;
-  updateScale();
+{
+restitution:0.4,
+friction:0.3,
+render:{fillStyle:"#D5FB11"}
 }
 
-setInterval(spawnBall, BALL_SPAWN_INTERVAL);
+)
 
-function updateScale() {
-  tonTextEl.textContent = `${totalTon.toLocaleString("de-DE")} t`;
+Composite.add(engine.world,ball)
 
-  const viewHeight = window.innerHeight;
-  const usableHeight = viewHeight - SCALE_TOP_PADDING - SCALE_BOTTOM_PADDING;
+totalTon += BALL_TON
 
-  const progress = Math.max(0, Math.min(totalTon / MAX_TON, 1));
-  const y = viewHeight - SCALE_BOTTOM_PADDING - progress * usableHeight;
+updateScale()
 
-  markerEl.style.top = `${y}px`;
 }
 
-updateScale();
+setInterval(spawnBall,1000)
 
-window.addEventListener("resize", () => {
-  render.canvas.width = Math.floor(window.innerWidth / 2);
-  render.canvas.height = window.innerHeight;
-  render.options.width = Math.floor(window.innerWidth / 2);
-  render.options.height = window.innerHeight;
+/* SCALE */
 
-  World.remove(engine.world, [floor, wallLeft, wallRight, ceiling]);
-  createWalls();
-  updateScale();
-});
+const marker = document.getElementById("marker")
+const tonText = document.getElementById("tonCount")
 
-showSlide(0);
+function updateScale(){
+
+tonText.textContent = totalTon.toLocaleString("de-DE")+" t"
+
+const h = window.innerHeight
+
+const pos = h - (totalTon/MAX_TON)*h
+
+marker.style.top = pos+"px"
+
+}
