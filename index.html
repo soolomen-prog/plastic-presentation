@@ -1,58 +1,51 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<title>Plastic Presentation</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
-
+  <meta charset="UTF-8" />
+  <title>Plastic Presentation</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
 </head>
 <body>
 
-<div id="timer"></div>
+  <div id="app-bg"></div>
 
-<div id="slides">
+  <div id="physics-layer">
+    <canvas id="physics"></canvas>
+  </div>
 
-<!-- SLIDE 1 -->
-<section class="slide" id="slide1">
+  <div id="timer"></div>
 
-<div class="balls-area">
-<canvas id="physics"></canvas>
-</div>
+  <div id="slides">
 
-<div class="title">
-Plastik<br>Welt
-</div>
+    <section class="slide active" id="slide1">
+      <div class="title">
+        Plastik<br>Welt
+      </div>
+    </section>
 
-</section>
+    <section class="slide" id="slide2">
+      <div class="left-title">
+        Plastikproduktion<br>weltweit – Live
+      </div>
 
-<!-- SLIDE 2 -->
-<section class="slide" id="slide2">
+      <div class="scale">
+        <div class="scale-line"></div>
 
-<div class="left-title">
-Plastikproduktion<br>weltweit – Live
-</div>
+        <div class="marker" id="marker">
+          <div class="tick"></div>
+          <div class="ton-count" id="tonCount">0 t</div>
+        </div>
+      </div>
 
-<div class="scale">
-<div class="scale-line"></div>
-<div class="marker" id="marker">
-<div class="tick"></div>
-<div class="ton-count" id="tonCount">0 t</div>
-</div>
-</div>
+      <div class="legend">
+        <div class="legend-ball"></div>
+        <div class="legend-text">= 13 tonnen</div>
+      </div>
+    </section>
 
-<div class="legend">
-<div class="legend-ball"></div>
-<div class="legend-text">= 13 tonnen</div>
-</div>
+  </div>
 
-</section>
-
-</div>
-
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
