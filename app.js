@@ -1,7 +1,7 @@
 const BALL_TON = 13;
 const MAX_TON = 50000;
 
-const BALL_SIZE = 38;
+const BALL_SIZE = 28;
 const BALL_RADIUS = BALL_SIZE / 2;
 
 const BALL_SPAWN_INTERVAL = 1000;
@@ -25,12 +25,8 @@ function showSlide(index) {
 }
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowRight") {
-    showSlide(currentSlide + 1);
-  }
-  if (e.key === "ArrowLeft") {
-    showSlide(currentSlide - 1);
-  }
+  if (e.key === "ArrowRight") showSlide(currentSlide + 1);
+  if (e.key === "ArrowLeft") showSlide(currentSlide - 1);
 });
 
 /* timer */
@@ -58,7 +54,8 @@ const {
   Runner,
   Bodies,
   Composite,
-  World
+  World,
+  Body
 } = Matter;
 
 const engine = Engine.create();
@@ -73,7 +70,7 @@ const render = Render.create({
     width: Math.floor(window.innerWidth / 2),
     height: window.innerHeight,
     wireframes: false,
-    background: "transparent",
+    background: "transparent"
   }
 });
 
@@ -96,12 +93,12 @@ function createWalls() {
     render: { visible: false }
   });
 
-  wallLeft = Bodies.rectangle(-50, height / 2, 100, height * 2, {
+  wallLeft = Bodies.rectangle(-40, height / 2, 80, height * 2, {
     isStatic: true,
     render: { visible: false }
   });
 
-  wallRight = Bodies.rectangle(width + 50, height / 2, 100, height * 2, {
+  wallRight = Bodies.rectangle(width + 40, height / 2, 80, height * 2, {
     isStatic: true,
     render: { visible: false }
   });
@@ -122,19 +119,22 @@ function spawnBall() {
   const width = window.innerWidth / 2;
 
   const ball = Bodies.circle(
-    Math.random() * (width - BALL_SIZE) + BALL_RADIUS,
-    -40,
+    Math.random() * (width - BALL_RADIUS * 2) + BALL_RADIUS,
+    -BALL_RADIUS,
     BALL_RADIUS,
     {
-      restitution: 0.45,
-      friction: 0.02,
-      frictionAir: 0.002,
-      density: 0.0012,
+      restitution: 0.12,
+      friction: 0.08,
+      frictionAir: 0.02,
+      density: 0.0015,
       render: {
         fillStyle: "#D5FB11"
       }
     }
   );
+
+  Body.setVelocity(ball, { x: 0, y: 0 });
+  Body.setAngularVelocity(ball, 0);
 
   balls.push(ball);
   Composite.add(engine.world, ball);
@@ -144,6 +144,8 @@ function spawnBall() {
 }
 
 setInterval(spawnBall, BALL_SPAWN_INTERVAL);
+
+/* scale */
 
 function updateScale() {
   tonTextEl.textContent = `${totalTon.toLocaleString("de-DE")} t`;
@@ -158,6 +160,8 @@ function updateScale() {
 }
 
 updateScale();
+
+/* resize */
 
 window.addEventListener("resize", () => {
   render.canvas.width = Math.floor(window.innerWidth / 2);
