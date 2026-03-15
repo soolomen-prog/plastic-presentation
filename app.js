@@ -62,7 +62,7 @@ const {
 } = Matter;
 
 const engine = Engine.create();
-engine.gravity.y = 1.05;
+engine.gravity.y = 0.7;
 
 const canvas = document.getElementById("physics");
 
