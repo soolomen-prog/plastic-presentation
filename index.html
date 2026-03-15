@@ -1,28 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Plastic Presentation</title>
 
-<style>
-body{
-margin:0;
-background:black;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-font-family:sans-serif;
-font-size:60px;
-}
-</style>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
 
 </head>
-
 <body>
 
-Plastic Presentation
+<div id="timer"></div>
+
+<div id="slides">
+
+<!-- SLIDE 1 -->
+<section class="slide" id="slide1">
+
+<div class="balls-area">
+<canvas id="physics"></canvas>
+</div>
+
+<div class="title">
+Plastik<br>Welt
+</div>
+
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide" id="slide2">
+
+<div class="left-title">
+Plastikproduktion<br>weltweit – Live
+</div>
+
+<div class="scale">
+<div class="scale-line"></div>
+<div class="marker" id="marker">
+<div class="tick"></div>
+<div class="ton-count" id="tonCount">0 t</div>
+</div>
+</div>
+
+<div class="legend">
+<div class="legend-ball"></div>
+<div class="legend-text">= 13 tonnen</div>
+</div>
+
+</section>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
