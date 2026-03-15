@@ -2,7 +2,6 @@ const BALL_TON = 13;
 const MAX_TON = 50000;
 
 const BALL_SIZE = 28;
-const BALL_RADIUS = BALL_SIZE / 2;
 
 const BALL_SPAWN_INTERVAL = 1000;
 
