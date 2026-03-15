@@ -121,20 +121,20 @@ const balls = [];
 function spawnBall() {
   const width = window.innerWidth / 2;
 
-  const ball = Bodies.circle(
-    Math.random() * (width - BALL_SIZE) + BALL_RADIUS,
-    -40,
-    BALL_RADIUS,
-    {
-      restitution: 0.45,
-      friction: 0.02,
-      frictionAir: 0.002,
-      density: 0.0012,
-      render: {
-        fillStyle: "#D5FB11"
-      }
+const ball = Bodies.circle(
+  Math.random() * (width - BALL_SIZE) + BALL_RADIUS,
+  -20,
+  BALL_RADIUS,
+  {
+    restitution: 0.12,
+    friction: 0.08,
+    frictionAir: 0.02,
+    density: 0.0015,
+    render: {
+      fillStyle: "#D5FB11"
     }
-  );
+  }
+);
 
   balls.push(ball);
   Composite.add(engine.world, ball);
