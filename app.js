@@ -123,7 +123,7 @@ function spawnBall() {
 
 const ball = Bodies.circle(
   Math.random() * (width - BALL_SIZE) + BALL_RADIUS,
-  -20,
+  -BALL_RADIUS,
   BALL_RADIUS,
   {
     restitution: 0.12,
