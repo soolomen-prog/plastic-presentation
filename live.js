@@ -31,8 +31,7 @@ const counterEl = document.getElementById("counter");
 
 function updateCounter() {
 
-  counterEl.textContent =
-    totalTon.toLocaleString("de-DE");
+counterEl.textContent = totalTon;
 }
 
 updateCounter();
