@@ -92,9 +92,9 @@ setInterval(updateTimer,1000);
 
 /* big counter */
 
-const bigCounter =
-document.getElementById(
-  "bigTonCounter"
+const bigCounters =
+document.querySelectorAll(
+  "#bigTonCounter, #bigTonCounter4"
 );
 
 const wagonCounter =
@@ -114,12 +114,12 @@ document.getElementById(
 
 function updateCounters(){
 
-  if(bigCounter){
+bigCounters.forEach(counter=>{
 
-    bigCounter.textContent =
-    totalTon.toString();
+  counter.textContent =
+  totalTon.toString();
 
-  }
+});
 
   if(wagonCounter){
 
