@@ -301,35 +301,41 @@ body{
 
 .train{
 
+  /*
+    One long SVG strip with 4 wagons.
+    Design source: 1920px viewport, SVG 3456x274px.
+    At 1920px width: left -1082px, right overflow 454px.
+  */
+
+  --wagon-strip-width:180vw;
+  --wagon-strip-height:14.270833vw;
+  --wagon-strip-left:-56.354167vw;
+  --wagon-strip-bottom:550px;
+
   position:absolute;
 
-  left:0;
-  top:390px;
+  left:var(--wagon-strip-left);
+  top:calc(var(--wagon-strip-bottom) - var(--wagon-strip-height));
 
-  height:140px;
-
-  width:100%;
+  width:var(--wagon-strip-width);
+  height:var(--wagon-strip-height);
 
   pointer-events:none;
 
 }
 
-.wagon{
+.wagon-strip{
 
-  position:absolute;
-
-  bottom:0;
-
-  height:140px;
-
-  transition:
-    transform 0.8s cubic-bezier(.22,1,.36,1);
+  width:100%;
+  height:100%;
 
 }
 
-.wagon img{
+.wagon-strip img{
 
+  width:100%;
   height:100%;
+
   display:block;
 
 }
