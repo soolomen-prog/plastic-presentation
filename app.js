@@ -44,6 +44,7 @@ function showSlide(index){
   }
 
   updateFateChart();
+  updateQuizHighlights();
 
 }
 
@@ -381,6 +382,120 @@ function updateFateChart(){
     tonEl.style.bottom = `calc(${fillPercent}% + 24px)`;
 
   });
+
+}
+
+
+/* quiz highlights */
+
+let slide5HighlightTimeout = null;
+let slide6HighlightTimeout = null;
+let lastQuizAnswerIndex = -1;
+
+function clearQuizHighlights(){
+
+  if(slide5HighlightTimeout){
+    clearTimeout(slide5HighlightTimeout);
+    slide5HighlightTimeout = null;
+  }
+
+  if(slide6HighlightTimeout){
+    clearTimeout(slide6HighlightTimeout);
+    slide6HighlightTimeout = null;
+  }
+
+  const slide5Highlight =
+  document.getElementById("slide5Highlight");
+
+  if(slide5Highlight){
+    slide5Highlight.classList.remove("is-highlighted");
+  }
+
+  document
+    .querySelectorAll(".quiz-answer-highlight")
+    .forEach(item=>{
+      item.classList.remove("is-highlighted");
+    });
+
+}
+
+function startSlide5Highlight(){
+
+  const slide5Highlight =
+  document.getElementById("slide5Highlight");
+
+  if(!slide5Highlight) return;
+
+  slide5HighlightTimeout = setTimeout(()=>{
+    slide5Highlight.classList.add("is-highlighted");
+  },2000);
+
+}
+
+function pickQuizAnswerIndex(count){
+
+  if(count <= 1) return 0;
+
+  let index = Math.floor(Math.random() * count);
+
+  while(index === lastQuizAnswerIndex){
+    index = Math.floor(Math.random() * count);
+  }
+
+  lastQuizAnswerIndex = index;
+  return index;
+
+}
+
+function runSlide6HighlightLoop(){
+
+  const answers =
+  Array.from(
+    document.querySelectorAll(".quiz-answer-highlight")
+  );
+
+  if(currentSlide !== 5 || answers.length === 0) return;
+
+  answers.forEach(item=>{
+    item.classList.remove("is-highlighted");
+  });
+
+  const index = pickQuizAnswerIndex(answers.length);
+  const item = answers[index];
+
+  /* restart CSS animation */
+  void item.offsetWidth;
+  item.classList.add("is-highlighted");
+
+  slide6HighlightTimeout = setTimeout(
+    runSlide6HighlightLoop,
+    2600
+  );
+
+}
+
+function startSlide6Highlights(){
+
+  lastQuizAnswerIndex = -1;
+
+  slide6HighlightTimeout = setTimeout(
+    runSlide6HighlightLoop,
+    500
+  );
+
+}
+
+function updateQuizHighlights(){
+
+  clearQuizHighlights();
+
+  if(currentSlide === 4){
+    startSlide5Highlight();
+  }
+
+  if(currentSlide === 5){
+    startSlide6Highlights();
+  }
 
 }
 
