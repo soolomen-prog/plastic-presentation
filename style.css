@@ -216,9 +216,12 @@ body{
   color:#000;
 }
 
-#bigTonCounter{
+#bigTonCounter,
+#bigTonCounter4{
+
   font-size:200px;
   line-height:180px;
+
 }
 
 .ton-unit{
