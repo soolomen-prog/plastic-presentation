@@ -229,10 +229,9 @@ window.addEventListener("resize", () => {
   render.canvas.width = window.innerWidth / 2;
   render.canvas.height = window.innerHeight;
 
-  render.options.width = window.innerWidth / 2;
-  render.options.height = window.innerHeight;
-
 });
+
+Render.setPixelRatio(render, window.devicePixelRatio);
 
 updateCounters();
 
