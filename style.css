@@ -48,6 +48,7 @@ body{
 
 #physics-layer{
 
+  display:none;
   position:fixed;
 
   left:0;
