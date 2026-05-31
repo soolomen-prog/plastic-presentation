@@ -313,23 +313,3 @@ body{
   pointer-events:none;
 
 }
-
-.wagon{
-
-  position:absolute;
-
-  bottom:0;
-
-  height:140px;
-
-  transition:
-    transform 0.8s cubic-bezier(.22,1,.36,1);
-
-}
-
-.wagon img{
-
-  height:100%;
-  display:block;
-
-}
