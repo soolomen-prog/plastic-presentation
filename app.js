@@ -1,5 +1,5 @@
 const BALL_TON = 13;
-
+const WAGON_TON = 60;
 const BALL_SIZE = 50;
 const BALL_RADIUS = BALL_SIZE / 2;
 
