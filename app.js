@@ -34,6 +34,12 @@ function showSlide(index){
   const quizPhysicsLayer =
   document.getElementById("quiz-physics-layer");
 
+  if(currentSlide === 4 || currentSlide === 5){
+    timerEl.style.display = "none";
+  }else{
+  timerEl.style.display = "block";
+  }
+
   if(currentSlide >= 0 && currentSlide <= 2){
     physicsLayer.style.display = "block";
   }else{
