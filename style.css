@@ -208,23 +208,20 @@ body{
 /* SLIDE 3 */
 
 .ton-display{
-
   position:absolute;
 
   left:calc(50% + 50px);
   bottom:86px;
 
-  font-size:200px;
-  line-height:180px;
-
   color:#000;
-
-  white-space:pre-line;
-
 }
 
 #bigTonCounter{
+  font-size:200px;
+  line-height:180px;
+}
 
-  min-height:180px;
-
+.ton-unit{
+  font-size:200px;
+  line-height:180px;
 }
