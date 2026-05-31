@@ -312,3 +312,12 @@ body{
   overflow:hidden;
 
 }
+
+#trainImage{
+
+  width:3456px;
+  height:274px;
+
+  display:block;
+
+}
