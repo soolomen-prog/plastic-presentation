@@ -31,27 +31,27 @@ function showSlide(index){
   const physicsLayer =
   document.getElementById("physics-layer");
 
-  const quizPhysicsLayer =
-  document.getElementById("quiz-physics-layer");
-
+  /*
+    Slides 5 and 6 are quiz slides now.
+    No timer and no falling balls there.
+  */
   if(currentSlide === 4 || currentSlide === 5){
     timerEl.style.display = "none";
   }else{
-  timerEl.style.display = "block";
+    timerEl.style.display = "block";
   }
 
+  /*
+    Main falling balls are visible only on slides 1–3.
+    The counter itself continues to grow in the background.
+  */
   if(currentSlide >= 0 && currentSlide <= 2){
     physicsLayer.style.display = "block";
   }else{
     physicsLayer.style.display = "none";
   }
 
-  if(currentSlide === 4 || currentSlide === 5){
-    quizPhysicsLayer.style.display = "block";
-    startQuizBalls();
-  }else{
-    quizPhysicsLayer.style.display = "none";
-  }
+  updateFateChart();
 
 }
 
@@ -288,11 +288,6 @@ window.addEventListener("resize", () => {
   render.canvas.width = window.innerWidth / 2;
   render.canvas.height = window.innerHeight;
 
-  if(typeof quizRender !== "undefined"){
-    quizRender.canvas.width = window.innerWidth;
-    quizRender.canvas.height = window.innerHeight;
-  }
-
 });
 
 Render.setPixelRatio(render, window.devicePixelRatio);
@@ -342,110 +337,6 @@ function updateTrain(){
   }
 
 }
-
-/* quiz balls */
-
-let quizStarted = false;
-
-const quizEngine = Engine.create();
-
-const quizCanvas =
-document.getElementById("quiz-physics");
-
-const quizRender = Render.create({
-
-  canvas:quizCanvas,
-  engine:quizEngine,
-
-  options:{
-    width:window.innerWidth,
-    height:window.innerHeight,
-    wireframes:false,
-    background:"transparent"
-  }
-
-});
-
-Render.run(quizRender);
-
-const quizRunner = Runner.create();
-Runner.run(quizRunner,quizEngine);
-
-function createQuizWalls(){
-
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  const quizFloor = Bodies.rectangle(
-    width/2,
-    height+50,
-    width,
-    100,
-    {isStatic:true}
-  );
-
-  const quizWallLeft = Bodies.rectangle(
-    -50,
-    height/2,
-    100,
-    height*2,
-    {isStatic:true}
-  );
-
-  const quizWallRight = Bodies.rectangle(
-    width+50,
-    height/2,
-    100,
-    height*2,
-    {isStatic:true}
-  );
-
-  World.add(
-    quizEngine.world,
-    [quizFloor, quizWallLeft, quizWallRight]
-  );
-
-}
-
-createQuizWalls();
-
-function spawnQuizBall(){
-
-  const width = window.innerWidth;
-
-  const ball = Bodies.circle(
-
-    Math.random() * (width - BALL_RADIUS * 2) + BALL_RADIUS,
-    -BALL_RADIUS,
-    BALL_RADIUS,
-
-    {
-      restitution:0.4,
-      friction:0.3,
-      render:{
-        fillStyle:"#D5FB11"
-      }
-    }
-
-  );
-
-  Composite.add(quizEngine.world, ball);
-
-}
-
-function startQuizBalls(){
-
-  if(quizStarted) return;
-
-  quizStarted = true;
-
-  setInterval(
-    spawnQuizBall,
-    BALL_SPAWN_INTERVAL
-  );
-
-}
-
 
 /* fate chart */
 
@@ -501,5 +392,7 @@ function updateFateChart(){
   });
 
 }
+
+setInterval(updateFateChart,250);
 
 showSlide(0);
