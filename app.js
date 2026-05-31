@@ -31,10 +31,20 @@ function showSlide(index){
   const physicsLayer =
   document.getElementById("physics-layer");
 
-  if(currentSlide === 3){
-    physicsLayer.style.display = "none";
-  }else{
+  const quizPhysicsLayer =
+  document.getElementById("quiz-physics-layer");
+
+  if(currentSlide >= 0 && currentSlide <= 2){
     physicsLayer.style.display = "block";
+  }else{
+    physicsLayer.style.display = "none";
+  }
+
+  if(currentSlide === 4 || currentSlide === 5){
+    quizPhysicsLayer.style.display = "block";
+    startQuizBalls();
+  }else{
+    quizPhysicsLayer.style.display = "none";
   }
 
 }
