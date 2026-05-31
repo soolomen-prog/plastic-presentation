@@ -180,7 +180,7 @@ body{
   position:absolute;
 
   left:calc(50% + 50px);
-  bottom:86px;
+  bottom:46px;
 
   font-size:180px;
   line-height:160px;
@@ -198,7 +198,7 @@ body{
   position:absolute;
 
   left:calc(50% + 50px);
-  bottom:86px;
+  bottom:46px;
 
   max-width:900px;
   max-height:900px;
@@ -211,7 +211,7 @@ body{
   position:absolute;
 
   left:calc(50% + 50px);
-  bottom:86px;
+  bottom:46px;
 
   color:#000;
 }
@@ -238,7 +238,7 @@ body{
   position:absolute;
 
   left:60px;
-  bottom:86px;
+  bottom:46px;
 
   display:flex;
   align-items:flex-end;
