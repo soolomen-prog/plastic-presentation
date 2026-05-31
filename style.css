@@ -6,171 +6,222 @@
 }
 
 :root {
-  --bg: #C1C0BE;
-  --ball: #D5FB11;
-  --black: #000000;
 
-  --ball-size: 28px;
+  --bg:#C1C0BE;
+  --ball:#D5FB11;
+  --black:#000000;
 
-  --timer-size: 60px;
-  --text-size: 60px;
+  --timer-size:60px;
 
-  --title-size: 200px;
-  --title-line-height: 180px;
+  --title-size:200px;
+  --title-line-height:180px;
 
-  --line-width: 4px;
 }
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
 html,
-body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: var(--bg);
-  font-family: "TTHoves", sans-serif;
+body{
+
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+
+  background:var(--bg);
+  font-family:"TTHoves",sans-serif;
+
 }
 
-#app-bg {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 0;
+#app-bg{
+
+  position:fixed;
+  inset:0;
+
+  background:var(--bg);
+
+  z-index:0;
+
 }
 
-#physics-layer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 50vw;
-  height: 100vh;
-  overflow: hidden;
-  z-index: 1;
-  pointer-events: none;
+#physics-layer{
+
+  position:fixed;
+
+  left:0;
+  top:0;
+
+  width:50vw;
+  height:100vh;
+
+  overflow:hidden;
+
+  z-index:1;
+  pointer-events:none;
+
 }
 
-#physics {
-  display: block;
-  width: 100%;
-  height: 100%;
+#physics{
+
+  width:100%;
+  height:100%;
+  display:block;
+
 }
 
-#timer {
-  position: fixed;
-  top: 64px;
-  right: 60px;
-  font-size: var(--timer-size);
-  line-height: 1;
-  color: var(--black);
-  z-index: 30;
+#timer{
+
+  position:fixed;
+
+  top:64px;
+  left:60px;
+
+  font-size:60px;
+  line-height:1;
+
+  color:#000;
+
+  z-index:100;
+
 }
 
-#slides {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
+#slides{
+
+  position:relative;
+
+  width:100vw;
+  height:100vh;
+
+  z-index:10;
+
 }
 
-.slide {
-  position: absolute;
-  inset: 0;
-  display: none;
+.slide{
+
+  position:absolute;
+  inset:0;
+
+  display:none;
+
 }
 
-.slide.active {
-  display: block;
+.slide.active{
+
+  display:block;
+
 }
 
-/* slide 1 */
+/* COMMON */
 
-.title {
-  position: absolute;
-  left: calc(50% + 50px);
-  bottom: 86px;
-  font-size: var(--title-size);
-  line-height: var(--title-line-height);
-  color: var(--black);
-  white-space: pre-line;
+.left-title{
+
+  position:absolute;
+
+  top:64px;
+  left:60px;
+
+  font-size:60px;
+  line-height:1.05;
+
+  color:#000;
+
 }
 
-/* slide 2 */
+.top-right{
 
-.left-title {
-  position: absolute;
-  top: 64px;
-  left: 60px;
-  font-size: var(--text-size);
-  line-height: 1.05;
-  color: var(--black);
+  position:absolute;
+
+  top:64px;
+  right:60px;
+
 }
 
-.scale {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 0;
-  height: 100vh;
-  transform: translateX(-50%);
+.legend{
+
+  display:flex;
+  align-items:center;
+  gap:16px;
+
 }
 
-.scale-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: var(--line-width);
-  height: 100vh;
-  background: var(--black);
-  transform: translateX(-50%);
+.legend-ball{
+
+  width:50px;
+  height:50px;
+
+  border-radius:50%;
+
+  background:var(--ball);
+
+  flex:0 0 auto;
+
 }
 
-.marker {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.legend-text{
+
+  font-size:60px;
+  line-height:1;
+
+  color:#000;
+
+  white-space:nowrap;
+
 }
 
-.tick {
-  width: 50px;
-  height: var(--line-width);
-  background: var(--black);
+/* SLIDE 1 */
+
+.title{
+
+  position:absolute;
+
+  left:calc(50% + 50px);
+  bottom:86px;
+
+  font-size:200px;
+  line-height:180px;
+
+  color:#000;
+
+  white-space:pre-line;
+
 }
 
-.ton-count {
-  position: absolute;
-  left: 70px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 60px;
-  line-height: 1;
-  color: var(--black);
-  white-space: nowrap;
+/* SLIDE 2 */
+
+.vw-logo{
+
+  position:absolute;
+
+  left:calc(50% + 50px);
+  bottom:86px;
+
+  max-width:700px;
+  max-height:700px;
+
 }
 
-.legend {
-  position: absolute;
-  right: 60px;
-  bottom: 64px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+/* SLIDE 3 */
+
+.ton-display{
+
+  position:absolute;
+
+  left:calc(50% + 50px);
+  bottom:86px;
+
+  font-size:200px;
+  line-height:180px;
+
+  color:#000;
+
+  white-space:pre-line;
+
 }
 
-.legend-ball {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--ball);
-  flex: 0 0 auto;
-}
+#bigTonCounter{
 
-.legend-text {
-  font-size: 60px;
-  line-height: 1;
-  color: var(--black);
-  white-space: nowrap;
+  min-height:180px;
+
 }
