@@ -286,7 +286,7 @@ body{
   width:120px;
   height:120px;
 
-  flex:none;
+  flex:0 0 80px;
 
 }
 
@@ -303,21 +303,33 @@ body{
 
   position:absolute;
 
-  left:-1082px;
-  top:276px;
+  left:0;
+  top:390px;
 
-  width:3456px;
-  height:274px;
+  height:140px;
 
-  overflow:hidden;
+  width:100%;
+
+  pointer-events:none;
 
 }
 
-#trainImage{
+.wagon{
 
-  width:3456px;
-  height:274px;
+  position:absolute;
 
+  bottom:0;
+
+  height:140px;
+
+  transition:
+    transform 0.8s cubic-bezier(.22,1,.36,1);
+
+}
+
+.wagon img{
+
+  height:100%;
   display:block;
 
 }
