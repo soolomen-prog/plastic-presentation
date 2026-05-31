@@ -303,13 +303,12 @@ body{
 
   position:absolute;
 
-  left:0;
-  top:390px;
+  left:-1082px;
+  top:276px;
 
-  height:140px;
+  width:3456px;
+  height:274px;
 
-  width:100%;
-
-  pointer-events:none;
+  overflow:hidden;
 
 }
