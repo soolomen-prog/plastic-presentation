@@ -458,3 +458,142 @@ body{
   object-fit:contain;
 
 }
+
+
+/* ===================== */
+/* SLIDE 7 */
+/* ===================== */
+
+.fate-chart{
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:760px;
+
+  display:flex;
+  align-items:stretch;
+
+  color:#000;
+
+  z-index:20;
+
+}
+
+.fate-segment{
+
+  position:relative;
+
+  flex:var(--share) 0 0;
+
+  height:100%;
+
+  border-right:4px solid #000;
+
+  overflow:hidden;
+
+}
+
+.fate-segment:first-of-type{
+
+  border-left:0;
+
+}
+
+.fate-segment:last-of-type{
+
+  border-right:0;
+
+}
+
+.fate-label{
+
+  position:absolute;
+
+  left:60px;
+  top:0;
+
+  font-size:52px;
+  line-height:1.05;
+  font-weight:500;
+
+  z-index:3;
+
+}
+
+.fate-label-vertical{
+
+  left:50%;
+  top:0;
+
+  transform:translateX(-50%);
+
+  writing-mode:vertical-rl;
+
+}
+
+.fate-ton{
+
+  position:absolute;
+
+  left:60px;
+  bottom:24px;
+
+  font-size:52px;
+  line-height:1;
+  font-weight:500;
+
+  z-index:3;
+
+}
+
+.fate-burned .fate-ton,
+.fate-recycled .fate-ton{
+
+  left:28px;
+
+}
+
+.fate-fill{
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:0%;
+
+  background:var(--ball);
+
+  border-top:4px solid #000;
+
+  z-index:1;
+
+}
+
+.fate-fill-muted{
+
+  background:#7CA09B;
+
+}
+
+.fate-percent{
+
+  position:absolute;
+
+  right:60px;
+  top:-132px;
+
+  font-size:112px;
+  line-height:1;
+  font-weight:500;
+
+  color:#7CA09B;
+
+  z-index:4;
+
+}
