@@ -28,6 +28,13 @@ function showSlide(index){
 
   });
 
+const physicsLayer =
+document.getElementById("physics-layer");
+
+if(currentSlide === 3){
+  physicsLayer.style.display = "none";
+}else{
+  physicsLayer.style.display = "block";
 }
 
 document.addEventListener("keydown",(e)=>{
