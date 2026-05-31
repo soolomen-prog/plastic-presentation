@@ -8,44 +8,70 @@
 </head>
 <body>
 
-  <div id="app-bg"></div>
+<div id="app-bg"></div>
 
-  <div id="physics-layer">
-    <canvas id="physics"></canvas>
-  </div>
+<div id="physics-layer">
+  <canvas id="physics"></canvas>
+</div>
 
-  <div id="timer"></div>
+<div id="timer"></div>
 
-  <div id="slides">
+<div id="slides">
 
-    <section class="slide active" id="slide1">
-      <div class="title">
-        Plastik<br>Welt
-      </div>
-    </section>
+  <!-- SLIDE 1 -->
 
-    <section class="slide" id="slide2">
-      <div class="left-title">
-        Plastikproduktion<br>weltweit – Live
-      </div>
+  <section class="slide active" id="slide1">
 
-      <div class="scale">
-        <div class="scale-line"></div>
+    <div class="legend top-right">
+      <div class="legend-ball"></div>
+      <div class="legend-text">= 13 tonnen</div>
+    </div>
 
-        <div class="marker" id="marker">
-          <div class="tick"></div>
-          <div class="ton-count" id="tonCount">0 t</div>
-        </div>
-      </div>
+    <div class="title">
+      Plastik<br>Welt
+    </div>
 
-      <div class="legend">
-        <div class="legend-ball"></div>
-        <div class="legend-text">= 13 tonnen</div>
-      </div>
-    </section>
+  </section>
 
-  </div>
+  <!-- SLIDE 2 -->
 
-  <script src="app.js"></script>
+  <section class="slide" id="slide2">
+
+    <div class="left-title">
+      Plastikproduktion<br>weltweit – Live
+    </div>
+
+    <img
+      class="vw-logo"
+      src="./assets/svg/vw.svg"
+      alt="VW"
+    />
+
+  </section>
+
+  <!-- SLIDE 3 -->
+
+  <section class="slide" id="slide3">
+
+    <div class="left-title">
+      Plastikproduktion<br>weltweit – Live
+    </div>
+
+    <div class="legend top-right">
+      <div class="legend-ball"></div>
+      <div class="legend-text">= 13 tonnen</div>
+    </div>
+
+    <div class="ton-display">
+      <div id="bigTonCounter">0</div>
+      <div>tonnen</div>
+    </div>
+
+  </section>
+
+</div>
+
+<script src="app.js"></script>
+
 </body>
 </html>
