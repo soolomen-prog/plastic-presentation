@@ -300,39 +300,42 @@ if(railroad){
 
 /* train */
 
-function updateTrain(){
+const trainImage =
+document.getElementById(
+  "trainImage"
+);
 
-  if(!train) return;
+let trainOffset = 0;
 
-  const wagonsNeeded =
-  Math.floor(
-    totalTon / WAGON_TON
-  );
+if(trainImage){
 
-  const current =
-  train.children.length;
+  setInterval(()=>{
 
-  for(
-    let i=current;
-    i<wagonsNeeded;
-    i++
-  ){
+    trainOffset += 864;
 
-    const wagon =
-    document.createElement("div");
+    trainImage.style.transition =
+    "transform 1s ease-in-out";
 
-    wagon.className =
-    "wagon";
+    trainImage.style.transform =
+    `translateX(${trainOffset}px)`;
 
-    wagon.style.left =
-    `${i*220}px`;
+    if(trainOffset >= 864){
 
-    wagon.innerHTML =
-    `<img src="./assets/svg/wagen.svg">`;
+      setTimeout(()=>{
 
-    train.appendChild(wagon);
+        trainImage.style.transition =
+        "none";
 
-  }
+        trainOffset = 0;
+
+        trainImage.style.transform =
+        "translateX(0px)";
+
+      },1000);
+
+    }
+
+  },5000);
 
 }
 
