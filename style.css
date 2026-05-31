@@ -225,3 +225,104 @@ body{
   font-size:200px;
   line-height:180px;
 }
+
+/* ===================== */
+/* SLIDE 4 */
+/* ===================== */
+
+.wagon-counter{
+
+  position:absolute;
+
+  left:60px;
+  top:550px;
+
+  display:flex;
+  align-items:flex-end;
+  gap:20px;
+
+}
+
+.wagon-number{
+
+  font-size:452px;
+  line-height:0.8;
+
+  color:#000;
+
+}
+
+.wagon-unit{
+
+  font-size:200px;
+  line-height:180px;
+
+  color:#000;
+
+}
+
+.railroad{
+
+  position:absolute;
+
+  left:0;
+  top:550px;
+
+  width:100%;
+  height:120px;
+
+  display:flex;
+
+  overflow:hidden;
+
+}
+
+.rail-segment{
+
+  flex:0 0 auto;
+
+  height:120px;
+
+}
+
+.rail-segment img{
+
+  height:120px;
+  display:block;
+
+}
+
+.train{
+
+  position:absolute;
+
+  left:0;
+  top:390px;
+
+  height:140px;
+
+  width:100%;
+
+  pointer-events:none;
+
+}
+
+.wagon{
+
+  position:absolute;
+
+  bottom:0;
+
+  height:140px;
+
+  transition:
+    transform 0.8s cubic-bezier(.22,1,.36,1);
+
+}
+
+.wagon img{
+
+  height:100%;
+  display:block;
+
+}
