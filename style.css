@@ -280,15 +280,18 @@ body{
 
 .rail-segment{
 
-  flex:0 0 auto;
-
+  width:80px;
   height:120px;
+
+  flex:0 0 80px;
 
 }
 
 .rail-segment img{
 
+  width:80px;
   height:120px;
+
   display:block;
 
 }
