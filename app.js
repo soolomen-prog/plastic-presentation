@@ -163,13 +163,16 @@ function createWalls(){
     {isStatic:true}
   );
 
-  wallRight = Bodies.rectangle(
-    halfWidth+50,
-    height/2,
-    100,
-    height*2,
-    {isStatic:true}
-  );
+wallRight = Bodies.rectangle(
+  halfWidth + 50,
+  height / 2,
+  100,
+  height * 2,
+  {
+    isStatic:true,
+    render:{ visible:false }
+  }
+);
 
   World.add(
     engine.world,
