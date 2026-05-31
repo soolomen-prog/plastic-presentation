@@ -310,7 +310,7 @@ body{
   --wagon-strip-width:180vw;
   --wagon-strip-height:14.270833vw;
   --wagon-strip-left:-56.354167vw;
-  --wagon-strip-bottom:800px;
+  --wagon-strip-bottom:300px;
 
   position:absolute;
 
