@@ -304,36 +304,22 @@ function updateTrain(){
 
   if(!train) return;
 
-  const wagonsNeeded =
-  Math.floor(
-    totalTon / WAGON_TON
-  );
+  /*
+    Slide 4 now uses one long SVG strip instead of adding
+    a separate wagon for every 60 tons.
+    Replace ./assets/svg/wagen.svg with the final 3456x274 file.
+  */
 
-  const current =
-  train.children.length;
+  if(!train.querySelector(".wagon-strip")){
 
-  for(
-    let i=current;
-    i<wagonsNeeded;
-    i++
-  ){
-
-    const wagon =
-    document.createElement("div");
-
-    wagon.className =
-    "wagon";
-
-    wagon.style.left =
-    `${i*220}px`;
-
-    wagon.innerHTML =
-    `<img src="./assets/svg/wagen.svg">`;
-
-    train.appendChild(wagon);
+    train.innerHTML =
+    `<div class="wagon-strip">
+      <img src="./assets/svg/wagen.svg" alt="">
+    </div>`;
 
   }
 
 }
+
 
 showSlide(0);
