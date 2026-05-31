@@ -28,14 +28,18 @@ function showSlide(index){
 
   });
 
-const physicsLayer =
-document.getElementById("physics-layer");
+  const physicsLayer =
+  document.getElementById("physics-layer");
 
-if(currentSlide === 3){
-  physicsLayer.style.display = "none";
-}else{
-  physicsLayer.style.display = "block";
+  if(currentSlide === 3){
+    physicsLayer.style.display = "none";
+  }else{
+    physicsLayer.style.display = "block";
+  }
+
 }
+
+/* navigation */
 
 document.addEventListener("keydown",(e)=>{
 
