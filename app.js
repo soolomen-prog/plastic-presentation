@@ -224,18 +224,15 @@ setInterval(
   BALL_SPAWN_INTERVAL
 );
 
-window.addEventListener(
-  "resize",
-  ()=>{
+window.addEventListener("resize", () => {
 
-    render.canvas.width =
-    window.innerWidth/2;
+  render.canvas.width = window.innerWidth / 2;
+  render.canvas.height = window.innerHeight;
 
-    render.canvas.height =
-    window.innerHeight;
+  render.options.width = window.innerWidth / 2;
+  render.options.height = window.innerHeight;
 
-  }
-);
+});
 
 updateCounters();
 
