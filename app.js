@@ -31,20 +31,12 @@ function showSlide(index){
   const physicsLayer =
   document.getElementById("physics-layer");
 
-  /*
-    Slides 5 and 6 are quiz slides now.
-    No timer and no falling balls there.
-  */
   if(currentSlide === 4 || currentSlide === 5){
     timerEl.style.display = "none";
   }else{
     timerEl.style.display = "block";
   }
 
-  /*
-    Main falling balls are visible only on slides 1–3.
-    The counter itself continues to grow in the background.
-  */
   if(currentSlide >= 0 && currentSlide <= 2){
     physicsLayer.style.display = "block";
   }else{
@@ -288,11 +280,10 @@ window.addEventListener("resize", () => {
   render.canvas.width = window.innerWidth / 2;
   render.canvas.height = window.innerHeight;
 
+
 });
 
 Render.setPixelRatio(render, window.devicePixelRatio);
-
-updateCounters();
 
 /* railroad */
 
@@ -394,5 +385,5 @@ function updateFateChart(){
 }
 
 setInterval(updateFateChart,250);
-
+updateCounters();
 showSlide(0);
