@@ -147,6 +147,7 @@ bigCounters.forEach(counter=>{
   }
 
   updateTrain();
+  updateFateChart();
 
 }
 
@@ -286,6 +287,11 @@ window.addEventListener("resize", () => {
 
   render.canvas.width = window.innerWidth / 2;
   render.canvas.height = window.innerHeight;
+
+  if(typeof quizRender !== "undefined"){
+    quizRender.canvas.width = window.innerWidth;
+    quizRender.canvas.height = window.innerHeight;
+  }
 
 });
 
@@ -437,6 +443,62 @@ function startQuizBalls(){
     spawnQuizBall,
     BALL_SPAWN_INTERVAL
   );
+
+}
+
+
+/* fate chart */
+
+const FATE_CHART_MAX_TON = 10000;
+
+const fateData = {
+  landfill:0.50,
+  nature:0.22,
+  burned:0.19,
+  recycled:0.09
+};
+
+function formatTon(value){
+
+  return Math.round(value)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g," ");
+
+}
+
+function updateFateChart(){
+
+  const fateChart =
+  document.getElementById("fateChart");
+
+  if(!fateChart) return;
+
+  Object.entries(fateData).forEach(([key,share])=>{
+
+    const segment =
+    fateChart.querySelector(`.fate-${key === "landfill" ? "landfill" : key}`);
+
+    const tonEl =
+    fateChart.querySelector(`[data-fate="${key}"]`);
+
+    if(!segment || !tonEl) return;
+
+    const value = totalTon * share;
+
+    const fillPercent = Math.min(
+      (value / FATE_CHART_MAX_TON) * 100,
+      100
+    );
+
+    const fill =
+    segment.querySelector(".fate-fill");
+
+    fill.style.height = `${fillPercent}%`;
+
+    tonEl.textContent = formatTon(value);
+    tonEl.style.bottom = `calc(${fillPercent}% + 24px)`;
+
+  });
 
 }
 
