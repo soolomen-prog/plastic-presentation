@@ -301,41 +301,28 @@ if(railroad){
 /* train */
 
 const trainImage =
-document.getElementById(
-  "trainImage"
-);
-
-let trainOffset = 0;
+document.getElementById("trainImage");
 
 if(trainImage){
 
-  setInterval(()=>{
+  trainImage.animate(
 
-    trainOffset += 864;
+    [
+      {
+        transform:"translateX(0px)"
+      },
+      {
+        transform:"translateX(864px)"
+      }
+    ],
 
-    trainImage.style.transition =
-    "transform 1s ease-in-out";
-
-    trainImage.style.transform =
-    `translateX(${trainOffset}px)`;
-
-    if(trainOffset >= 864){
-
-      setTimeout(()=>{
-
-        trainImage.style.transition =
-        "none";
-
-        trainOffset = 0;
-
-        trainImage.style.transform =
-        "translateX(0px)";
-
-      },1000);
-
+    {
+      duration:5000,
+      iterations:Infinity,
+      easing:"linear"
     }
 
-  },5000);
+  );
 
 }
 
