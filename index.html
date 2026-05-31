@@ -1,181 +1,398 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <title>Plastic Presentation</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
-</head>
-<body>
+const BALL_TON = 13;
+const WAGON_TON = 60;
+const BALL_SIZE = 50;
+const BALL_RADIUS = BALL_SIZE / 2;
 
-<div id="app-bg"></div>
+const BALL_SPAWN_INTERVAL = 1000;
 
-<div id="physics-layer">
-  <canvas id="physics"></canvas>
-</div>
+let currentSlide = 0;
+let totalTon = 0;
 
+/* slides */
 
-<div id="timer"></div>
+const slides = document.querySelectorAll(".slide");
 
-<div id="slides">
+function showSlide(index){
 
-  <!-- SLIDE 1 -->
+  currentSlide = Math.max(
+    0,
+    Math.min(index,slides.length-1)
+  );
 
-  <section class="slide active" id="slide1">
+  slides.forEach((slide,i)=>{
 
-    <div class="legend top-right">
-      <div class="legend-ball"></div>
-      <div class="legend-text">= 13 tonnen</div>
-    </div>
+    slide.classList.toggle(
+      "active",
+      i===currentSlide
+    );
 
-    <div class="title">
-      Plastik<br>Welt
-    </div>
+  });
 
-  </section>
+  const physicsLayer =
+  document.getElementById("physics-layer");
 
-  <!-- SLIDE 2 -->
+  /*
+    Slides 5 and 6 are quiz slides now.
+    No timer and no falling balls there.
+  */
+  if(currentSlide === 4 || currentSlide === 5){
+    timerEl.style.display = "none";
+  }else{
+    timerEl.style.display = "block";
+  }
 
-  <section class="slide" id="slide2">
+  /*
+    Main falling balls are visible only on slides 1–3.
+    The counter itself continues to grow in the background.
+  */
+  if(currentSlide >= 0 && currentSlide <= 2){
+    physicsLayer.style.display = "block";
+  }else{
+    physicsLayer.style.display = "none";
+  }
 
-    <div class="left-title">
-      Plastikproduktion<br>weltweit – Live
-    </div>
+  updateFateChart();
 
-    <img
-      class="vw-logo"
-      src="./assets/svg/vw.svg"
-      alt="VW"
-    />
+}
 
-  </section>
+/* navigation */
 
-  <!-- SLIDE 3 -->
+document.addEventListener("keydown",(e)=>{
 
-  <section class="slide" id="slide3">
+  if(e.key==="ArrowRight"){
+    showSlide(currentSlide+1);
+  }
 
-    <div class="left-title">
-      Plastikproduktion<br>weltweit – Live
-    </div>
+  if(e.key==="ArrowLeft"){
+    showSlide(currentSlide-1);
+  }
 
-    <div class="legend top-right">
-      <div class="legend-ball"></div>
-      <div class="legend-text">= 13 tonnen</div>
-    </div>
+});
 
-<div class="ton-display">
-  <div id="bigTonCounter">0</div>
-  <div class="ton-unit">tonnen</div>
-</div>
+/* timer */
 
-  </section>
+const timerEl =
+document.getElementById("timer");
 
-  <!-- SLIDE 4 -->
+const startTime = Date.now();
 
-<section class="slide" id="slide4">
+function updateTimer(){
 
-  <div class="left-title">
-    Plastikproduktion<br>weltweit – Live
-  </div>
+  const t =
+  Math.floor(
+    (Date.now()-startTime)/1000
+  );
 
-  <div class="wagon-counter">
+  const h =
+  String(
+    Math.floor(t/3600)
+  ).padStart(2,"0");
 
-    <div id="wagonCounter" class="wagon-number">
-      0
-    </div>
+  const m =
+  String(
+    Math.floor((t%3600)/60)
+  ).padStart(2,"0");
 
-    <div class="wagon-unit">
-      Stk.
-    </div>
+  const s =
+  String(
+    t%60
+  ).padStart(2,"0");
 
-  </div>
+  timerEl.textContent =
+  `${h}:${m}:${s}`;
 
-  <div class="ton-display">
-    <div id="bigTonCounter4">0</div>
-    <div class="ton-unit">tonnen</div>
-  </div>
+}
 
-  <div class="railroad" id="railroad"></div>
+updateTimer();
+setInterval(updateTimer,1000);
 
-  <div class="train" id="train"></div>
+/* big counter */
 
-</section>
+const bigCounters =
+document.querySelectorAll(
+  "#bigTonCounter, #bigTonCounter4"
+);
 
-<!-- SLIDE 5 -->
+const wagonCounter =
+document.getElementById(
+  "wagonCounter"
+);
 
-<section class="slide quiz-slide" id="slide5">
+const train =
+document.getElementById(
+  "train"
+);
 
-  <div class="quiz-question">
-    Wohin geht<br>
-    der größte Teil<br>
-    des Plastiks?
-  </div>
+const railroad =
+document.getElementById(
+  "railroad"
+);
 
-</section>
+function updateCounters(){
 
+bigCounters.forEach(counter=>{
 
-<!-- SLIDE 6 -->
+  counter.textContent =
+  totalTon.toString();
 
-<section class="slide quiz-slide" id="slide6">
+});
 
-  <div class="quiz-answers">
-    Natur<br>
-    Deponien<br>
-    Recycelt<br>
-    Verbrannt
-  </div>
+  if(wagonCounter){
 
-  <div class="qr-box">
-    <img src="./assets/qr/1_qr.png" alt="QR Code">
-  </div>
+    wagonCounter.textContent =
+    Math.floor(
+      totalTon / WAGON_TON
+    );
 
-</section>
-  
+  }
 
-<!-- SLIDE 7 -->
+  updateTrain();
+  updateFateChart();
 
-<section class="slide" id="slide7">
+}
 
-  <div class="left-title">
-    Wohin geht das Plastik?<br>
-    (in Tonnen)
-  </div>
+/* physics */
 
-  <div class="fate-chart" id="fateChart">
+const {
+  Engine,
+  Render,
+  Runner,
+  Bodies,
+  Composite,
+  World
+} = Matter;
 
-    <div class="fate-percent">28%</div>
+const engine = Engine.create();
 
-    <div class="fate-segment fate-landfill" style="--share:50">
-      <div class="fate-label">Deponien</div>
-      <div class="fate-ton" data-fate="landfill">0</div>
-      <div class="fate-fill"></div>
-    </div>
+const canvas =
+document.getElementById(
+  "physics"
+);
 
-    <div class="fate-segment fate-nature" style="--share:22">
-      <div class="fate-label">Natur</div>
-      <div class="fate-ton" data-fate="nature">0</div>
-      <div class="fate-fill"></div>
-    </div>
+const render = Render.create({
 
-    <div class="fate-segment fate-burned" style="--share:19">
-      <div class="fate-label fate-label-vertical">Verbrannt</div>
-      <div class="fate-ton" data-fate="burned">0</div>
-      <div class="fate-fill fate-fill-muted"></div>
-    </div>
+  canvas,
 
-    <div class="fate-segment fate-recycled" style="--share:9">
-      <div class="fate-label fate-label-vertical">Recycelt</div>
-      <div class="fate-ton" data-fate="recycled">0</div>
-      <div class="fate-fill fate-fill-muted"></div>
-    </div>
+  engine,
 
-  </div>
+  options:{
+    width:window.innerWidth/2,
+    height:window.innerHeight,
+    wireframes:false,
+    background:"transparent"
+  }
 
-</section>
+});
 
-</div>
+Render.run(render);
 
-<script src="app.js"></script>
+const runner = Runner.create();
+Runner.run(runner,engine);
 
-</body>
-</html>
+/* walls */
+
+let floor;
+let wallLeft;
+let wallRight;
+
+function createWalls(){
+
+  const halfWidth =
+  window.innerWidth/2;
+
+  const height =
+  window.innerHeight;
+
+  floor = Bodies.rectangle(
+    halfWidth/2,
+    height+50,
+    halfWidth,
+    100,
+    {isStatic:true}
+  );
+
+  wallLeft = Bodies.rectangle(
+    -50,
+    height/2,
+    100,
+    height*2,
+    {isStatic:true}
+  );
+
+wallRight = Bodies.rectangle(
+  halfWidth + 50,
+  height / 2,
+  100,
+  height * 2,
+  {
+    isStatic:true,
+    render:{ visible:false }
+  }
+);
+
+  World.add(
+    engine.world,
+    [floor,wallLeft,wallRight]
+  );
+
+}
+
+createWalls();
+
+/* balls */
+
+function spawnBall(){
+
+  const halfWidth =
+  window.innerWidth/2;
+
+  const ball =
+  Bodies.circle(
+
+    Math.random()*
+    (halfWidth-BALL_RADIUS*2)+
+    BALL_RADIUS,
+
+    -BALL_RADIUS,
+
+    BALL_RADIUS,
+
+    {
+      restitution:0.4,
+      friction:0.3,
+      render:{
+        fillStyle:"#D5FB11"
+      }
+    }
+
+  );
+
+  Composite.add(
+    engine.world,
+    ball
+  );
+
+  totalTon += BALL_TON;
+
+  updateCounters();
+
+}
+
+setInterval(
+  spawnBall,
+  BALL_SPAWN_INTERVAL
+);
+
+window.addEventListener("resize", () => {
+
+  render.canvas.width = window.innerWidth / 2;
+  render.canvas.height = window.innerHeight;
+
+});
+
+Render.setPixelRatio(render, window.devicePixelRatio);
+
+updateCounters();
+
+/* railroad */
+
+if(railroad){
+
+  for(let i=0;i<24;i++){
+
+    const segment =
+    document.createElement("div");
+
+    segment.className =
+    "rail-segment";
+
+    segment.innerHTML =
+    `<img src="./assets/svg/railroad.svg">`;
+
+    railroad.appendChild(segment);
+
+  }
+
+}
+
+/* train */
+
+function updateTrain(){
+
+  if(!train) return;
+
+  /*
+    Slide 4 now uses one long SVG strip instead of adding
+    a separate wagon for every 60 tons.
+    Replace ./assets/svg/wagen.svg with the final 3456x274 file.
+  */
+
+  if(!train.querySelector(".wagon-strip")){
+
+    train.innerHTML =
+    `<div class="wagon-strip">
+      <img src="./assets/svg/wagen.svg" alt="">
+    </div>`;
+
+  }
+
+}
+
+/* fate chart */
+
+const FATE_CHART_MAX_TON = 10000;
+
+const fateData = {
+  landfill:0.50,
+  nature:0.22,
+  burned:0.19,
+  recycled:0.09
+};
+
+function formatTon(value){
+
+  return Math.round(value)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g," ");
+
+}
+
+function updateFateChart(){
+
+  const fateChart =
+  document.getElementById("fateChart");
+
+  if(!fateChart) return;
+
+  Object.entries(fateData).forEach(([key,share])=>{
+
+    const segment =
+    fateChart.querySelector(`.fate-${key === "landfill" ? "landfill" : key}`);
+
+    const tonEl =
+    fateChart.querySelector(`[data-fate="${key}"]`);
+
+    if(!segment || !tonEl) return;
+
+    const value = totalTon * share;
+
+    const fillPercent = Math.min(
+      (value / FATE_CHART_MAX_TON) * 100,
+      100
+    );
+
+    const fill =
+    segment.querySelector(".fate-fill");
+
+    fill.style.height = `${fillPercent}%`;
+
+    tonEl.textContent = formatTon(value);
+    tonEl.style.bottom = `calc(${fillPercent}% + 24px)`;
+
+  });
+
+}
+
+setInterval(updateFateChart,250);
+
+showSlide(0);
