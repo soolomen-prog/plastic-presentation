@@ -219,14 +219,14 @@ body{
 #bigTonCounter,
 #bigTonCounter4{
 
-  font-size:200px;
-  line-height:180px;
+  font-size:180px;
+  line-height:160px;
 
 }
 
 .ton-unit{
-  font-size:200px;
-  line-height:180px;
+  font-size:180px;
+  line-height:160px;
 }
 
 /* ===================== */
@@ -258,8 +258,8 @@ body{
 
 .wagon-unit{
 
-  font-size:200px;
-  line-height:180px;
+  font-size:180px;
+  line-height:160px;
 
   color:#000;
 
