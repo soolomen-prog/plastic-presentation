@@ -86,12 +86,40 @@ document.getElementById(
   "bigTonCounter"
 );
 
+const wagonCounter =
+document.getElementById(
+  "wagonCounter"
+);
+
+const train =
+document.getElementById(
+  "train"
+);
+
+const railroad =
+document.getElementById(
+  "railroad"
+);
+
 function updateCounters(){
 
-  if(!bigCounter) return;
+  if(bigCounter){
 
-  bigCounter.textContent =
-  totalTon.toString();
+    bigCounter.textContent =
+    totalTon.toString();
+
+  }
+
+  if(wagonCounter){
+
+    wagonCounter.textContent =
+    Math.floor(
+      totalTon / WAGON_TON
+    );
+
+  }
+
+  updateTrain();
 
 }
 
@@ -237,5 +265,64 @@ window.addEventListener("resize", () => {
 Render.setPixelRatio(render, window.devicePixelRatio);
 
 updateCounters();
+
+/* railroad */
+
+if(railroad){
+
+  for(let i=0;i<24;i++){
+
+    const segment =
+    document.createElement("div");
+
+    segment.className =
+    "rail-segment";
+
+    segment.innerHTML =
+    `<img src="./assets/svg/railroad.svg">`;
+
+    railroad.appendChild(segment);
+
+  }
+
+}
+
+/* train */
+
+function updateTrain(){
+
+  if(!train) return;
+
+  const wagonsNeeded =
+  Math.floor(
+    totalTon / WAGON_TON
+  );
+
+  const current =
+  train.children.length;
+
+  for(
+    let i=current;
+    i<wagonsNeeded;
+    i++
+  ){
+
+    const wagon =
+    document.createElement("div");
+
+    wagon.className =
+    "wagon";
+
+    wagon.style.left =
+    `${i*220}px`;
+
+    wagon.innerHTML =
+    `<img src="./assets/svg/wagen.svg">`;
+
+    train.appendChild(wagon);
+
+  }
+
+}
 
 showSlide(0);
