@@ -280,7 +280,7 @@ body{
 
 .rail-segment{
 
-  width:80px;
+  width:120px;
   height:120px;
 
   flex:0 0 80px;
@@ -289,7 +289,7 @@ body{
 
 .rail-segment img{
 
-  width:80px;
+  width:120px;
   height:120px;
 
   display:block;
