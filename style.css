@@ -11,7 +11,7 @@
   --ball:#D5FB11;
   --black:#000000;
 
-  --timer-size:60px;
+  --timer-size:52px;
 
   --title-size:200px;
   --title-line-height:180px;
@@ -81,7 +81,7 @@ body{
   top:64px;
   left:calc(50% + 50px);
 
-  font-size:60px;
+  font-size:52px;
   line-height:1;
 
   color:#000;
@@ -125,7 +125,7 @@ body{
   top:64px;
   left:60px;
 
-  font-size:60px;
+  font-size:52px;
   line-height:1.05;
 
   color:#000;
@@ -164,7 +164,7 @@ body{
 
 .legend-text{
 
-  font-size:60px;
+  font-size:52px;
   line-height:1;
 
   color:#000;
