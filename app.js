@@ -37,7 +37,7 @@ function showSlide(index){
     timerEl.style.display = "block";
   }
 
-  if((currentSlide >= 0 && currentSlide <= 2) || currentSlide === 12 || currentSlide === 24){
+  if((currentSlide >= 0 && currentSlide <= 2) || currentSlide === 12 || currentSlide === 24 || currentSlide === 31){
     physicsLayer.style.display = "block";
   }else{
     physicsLayer.style.display = "none";
