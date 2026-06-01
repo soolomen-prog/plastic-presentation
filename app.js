@@ -218,7 +218,18 @@ let floor;
 let wallLeft;
 let wallRight;
 
+let lastPhysicsWidth = window.innerWidth / 2;
+let lastPhysicsHeight = window.innerHeight;
+
 function createWalls(){
+
+  [floor, wallLeft, wallRight].forEach(wall=>{
+
+    if(wall){
+      Composite.remove(engine.world, wall);
+    }
+
+  });
 
   const halfWidth =
   window.innerWidth/2;
@@ -373,15 +384,59 @@ setInterval(
   BURN_CYCLE_INTERVAL
 );
 
-window.addEventListener("resize", () => {
+function resizeMainPhysics(){
 
-  render.canvas.width = window.innerWidth / 2;
-  render.canvas.height = window.innerHeight;
+  const newWidth = window.innerWidth / 2;
+  const newHeight = window.innerHeight;
 
+  const scaleX = newWidth / lastPhysicsWidth;
+  const scaleY = newHeight / lastPhysicsHeight;
+
+  render.options.width = newWidth;
+  render.options.height = newHeight;
+
+  render.canvas.width = newWidth * window.devicePixelRatio;
+  render.canvas.height = newHeight * window.devicePixelRatio;
+
+  render.canvas.style.width = `${newWidth}px`;
+  render.canvas.style.height = `${newHeight}px`;
+
+  render.bounds.max.x = newWidth;
+  render.bounds.max.y = newHeight;
+
+  plasticBalls.forEach(ball=>{
+
+    Body.setPosition(ball,{
+      x:Math.min(
+        Math.max(ball.position.x * scaleX, BALL_RADIUS),
+        newWidth - BALL_RADIUS
+      ),
+      y:Math.min(
+        Math.max(ball.position.y * scaleY, -BALL_RADIUS),
+        newHeight - BALL_RADIUS
+      )
+    });
+
+    Body.setVelocity(ball,{
+      x:ball.velocity.x * scaleX,
+      y:ball.velocity.y * scaleY
+    });
+
+  });
+
+  lastPhysicsWidth = newWidth;
+  lastPhysicsHeight = newHeight;
+
+  createWalls();
   createOceanWalls();
   createMicroSnowWalls();
 
-});
+  Render.setPixelRatio(render, window.devicePixelRatio);
+
+}
+
+window.addEventListener("resize", resizeMainPhysics);
+document.addEventListener("fullscreenchange", resizeMainPhysics);
 
 Render.setPixelRatio(render, window.devicePixelRatio);
 
