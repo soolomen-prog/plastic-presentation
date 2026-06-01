@@ -725,6 +725,10 @@ body{
 
 }
 
+#growthOceanValue{
+  letter-spacing:-12px;
+}
+
 .growth-unit{
 
   display:block;
