@@ -1450,3 +1450,16 @@ body{
   line-height:1.1;
   z-index:20;
 }
+
+
+/* precise title size overrides */
+#slide19 .quiz-question,
+#slide22 .quiz-question{
+  font-size:160px;
+  line-height:140px;
+}
+
+#slide24 .card-answer-title{
+  font-size:160px;
+  line-height:140px;
+}
