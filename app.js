@@ -64,26 +64,20 @@ function showSlide(index){
 
 document.addEventListener("keydown",(e)=>{
 
-  console.log(e.key);
-
-  if(
-    e.key==="ArrowRight" ||
-    e.key==="PageDown" ||
-    e.key===" " ||
-    e.key==="Enter" ||
-    e.key==="Right" ||
-    e.key==="Down"
-  ){
+  if(e.key==="ArrowRight"){
     showSlide(currentSlide+1);
   }
 
-  if(
-    e.key==="ArrowLeft" ||
-    e.key==="PageUp" ||
-    e.key==="Left" ||
-    e.key==="Up"
-  ){
+  if(e.key==="ArrowLeft"){
     showSlide(currentSlide-1);
+  }
+
+  if(e.key.toLowerCase() === "s" && currentSlide === 7){
+    toggleGrowthAnimation();
+  }
+
+  if(e.key.toLowerCase() === "s" && currentSlide === 8){
+    toggleOceanAnimation();
   }
 
 });
