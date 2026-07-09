@@ -1,11 +1,17 @@
 @font-face {
-  font-family: "TTHoves";
-  src: url("./assets/fonts/TTHovesPro-Medium.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter_Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "NeueMachina";
-  src: url("./assets/fonts/NeueMachina-Regular.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter_Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -30,7 +36,7 @@ body {
 
   background: var(--bg);
 
-  font-family: "TTHoves", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 #bg {
@@ -90,7 +96,7 @@ body {
 
   transform: translate(-50%, -50%);
 
-  font-family: "NeueMachina", sans-serif;
+  font-family: "Inter", sans-serif;
 
   font-size: 400px;
   line-height: 1;
