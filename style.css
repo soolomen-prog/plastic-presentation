@@ -1,8 +1,9 @@
 @font-face {
-  font-family: "TTHoves";
-  src: url("./assets/fonts/TT Hoves Pro Medium.woff2") format("woff2");
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter_Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -31,7 +32,7 @@ body{
   overflow:hidden;
 
   background:var(--bg);
-  font-family:"TTHoves",sans-serif;
+  font-family:"Inter",sans-serif;
 
 }
 
